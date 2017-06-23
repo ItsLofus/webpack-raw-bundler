@@ -1,0 +1,34 @@
+{
+  "name": "webpack-raw-bundler",
+  "version": "1.0.0",
+  "description": "Merge multiple files into single files",
+  "scripts": {},
+  "contributors": [],
+  "devDependencies": {},
+  "dependencies": {},
+  "keywords": [
+    "global",
+    "js",
+    "merge",
+    "concat",
+    "global webpack",
+    "raw",
+    "bundler"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markshapiro/webpack-merge-and-include-globally.git"
+  },
+  "bugs": {
+    "url": "https://github.com/markshapiro/webpack-merge-and-include-globally/issues"
+  },
+  "homepage": "https://github.com/markshapiro/webpack-merge-and-include-globally#readme",
+  "licenses": [],
+  "maintainers": [
+    {
+      "name": "lofus",
+      "email": "aeteather@gmail.com"
+    }
+  ],
+  "directories": {},
+}
