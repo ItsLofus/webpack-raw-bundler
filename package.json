@@ -1,6 +1,6 @@
 {
   "name": "webpack-raw-bundler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Merge multiple files into single files",
   "scripts": {},
   "contributors": ["lofus"],
@@ -30,5 +30,5 @@
       "email": "aeteather@gmail.com"
     }
   ],
-  "directories": {},
+  "directories": {}
 }
