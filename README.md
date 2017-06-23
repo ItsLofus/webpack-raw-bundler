@@ -33,7 +33,7 @@ To the new:
   
   module.exports = {
     plugins: [
-       new BundlerPlugin({
+       new RawBundlerPlugin({
              excludedFilenames: [/angulartics/],
              readEncoding: "utf-8",
              includeFilePathComments: false,
