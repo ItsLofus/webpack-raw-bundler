@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Merge multiple files into single files",
   "scripts": {},
-  "contributors": [],
+  "contributors": ["lofus"],
   "devDependencies": {},
   "dependencies": {},
   "keywords": [
@@ -17,12 +17,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/markshapiro/webpack-merge-and-include-globally.git"
+    "url": "git+https://github.com/ItsLofus/webpack-raw-bundler.git"
   },
   "bugs": {
-    "url": "https://github.com/markshapiro/webpack-merge-and-include-globally/issues"
+    "url": "https://github.com/ItsLofus/webpack-raw-bundler/issues"
   },
-  "homepage": "https://github.com/markshapiro/webpack-merge-and-include-globally#readme",
+  "homepage": "https://github.com/ItsLofus/webpack-raw-bundler#readme",
   "licenses": [],
   "maintainers": [
     {
