@@ -83,7 +83,9 @@ Puts the file path of the added file in a `/**/` comment style before the bundle
 Note: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering character generated after this.
 
 ### TODO
-Add support for `useAsLoader`
-Add per bundle support for exlcusions
-Add inclusion support 
-Add custom comment styles 
+```
+	Add support for `useAsLoader`
+	Add per bundle support for exlcusions
+	Add inclusion support 
+	Add custom comment styles 
+```
