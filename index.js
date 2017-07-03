@@ -109,14 +109,9 @@ MergeIntoFile.prototype.apply = function(compiler) {
     var file2createCnt = 0;
     Bundles.forEach(function (filename) {
         var files = options[filename];
-        //BeenHere = {};
-        // files gets the array of the bundle's options
-        //for (var i = 0; i < files.length; i++) {
-        //FileExt = null; 
             var BundleMe;
             var currentBundlePartOptions;
 
-            //console.log("files[" + i + "]: " + JSON.stringify(files[i],null,2));
 
             if (typeof files[0] == "string") {
                 BundleMe = files[0];
@@ -144,7 +139,6 @@ MergeIntoFile.prototype.apply = function(compiler) {
                     }
                 });
             })(filename);
-        //}
     });
   });
 };
