@@ -21,7 +21,7 @@ To the new:
 ``` html
 	<script src="js/bundle.js"></script>
 	<script>
-		$(silly()); // Some function in silly.js's global scope
+		$(silly()); 
 	</script>
 ```
 
@@ -37,10 +37,15 @@ To the new:
              excludedFilenames: [/angulartics/],
              readEncoding: "utf-8",
              includeFilePathComments: false,
-             bundles: [ "vendor.js", "styles.css" ],
+			 allowDuplicatesInBundle: false,
+             bundles: [ "vendor.js", "styles.css", "vendor.lib.js" ],
              "vendor.js": [
 				'js/*.js'
              ],
+			 "vendor.lib.js": [{
+                 path: "../build/*.js",
+                 match: /vendor/
+             }],
 			 "styles.css": [
 			 	'css/bootstrap.css',
 				'css/edits.css'
@@ -62,30 +67,50 @@ This generates two files with merged js and css content.
 
 ## bundles 
 (Required)
-The output files to be made. These will be outputted to the same directory as set in `module.exports.output.path` of your `webpack.config.js`
+
+The output files to be made. These will be outputted to the same directory as set in `module.exports.output.path` of your webpack.config
 
 ## [Files] 
-(Required) - (*.*)
-Must have the same name as a member of bundles. The sub-array are the files to are be included in the bundle. 
-If a filename is given a wildcard, it will add all files, including all subdirectories, with the appropiate file extension from that folder on.
+(Required)
+ 
+Must have the same name as a member of bundles. The sub-array are the files to are be included in the bundle. The sub-array has the following format options:
+``` javascript
+"bundle_name.extension" : [
+	"pathtype1.ext",
+	"*.ext",
+	{
+		path: "pathtype2.ext"
+		match: /Bad_file/ /* Overpowerd by the exlusion variable */
+	},
+	{ path: "*.ext2" }
+]
+```
+If a path is given a wildcard, it will add all files, including all subdirectories, with the appropiate file extension from that folder on.
 
 ## excludedFilenames
 default: []
+
 An array of regexp expressions that if a dynamically found filename is matched, will not be included.
 
 ## readEncoding
 default: utf-8
+
 The encoding nodejs reads in. Look up the documentation for more information.
 
 ## includeFilePathComments
 (Boolean) - default: false 
+
 Puts the file path of the added file in a `/**/` comment style before the bundled file contents.
 Note: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering character generated after this.
+
+## allowDuplicatesInBundle
+(Boolean) - default: false
+
+Per individual file bundle, are identical file names allowed to be parsed?
 
 ### TODO
 ```
 	Add support for `useAsLoader`
 	Add per bundle support for exlcusions
-	Add inclusion support 
 	Add custom comment styles 
 ```
