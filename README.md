@@ -1,12 +1,12 @@
 A Webpack plugin to merge your files together, unedited, into a single file.
 
-### Getting Started
+# Getting Started
 
 ```bash
 npm install webpack-raw-bundler
 ```
 
-### Usage
+# Usage
 
 When you need to include a bunch of libraries, but don't have time to make the ordinary require statements, use this to bundle them all together so that their globals are actually global.
 In other words, From the old:
@@ -26,7 +26,7 @@ To the new:
 ```
 
 
-### Installing to the config
+# Installing to the config
 ``` javascript
 
   var RawBundlerPlugin = require('webpack-raw-bundler');
@@ -54,7 +54,7 @@ To the new:
     ]
 
 ```
-### Example Output
+## Example Output
 
 This generates two files with merged js and css content.
 
@@ -63,7 +63,7 @@ This generates two files with merged js and css content.
   <link rel="stylesheet" href="./styles.css">
 ```
 
-### Options
+# Options
 
 ## bundles 
 (Required)
@@ -80,7 +80,7 @@ Must have the same name as a member of bundles. The sub-array are the files to a
 	"*.ext",
 	{
 		path: "pathtype2.ext"
-		match: /Bad_file/ /* Overpowerd by the exlusion variable */
+		match: /good_file_standard/ /* Overpowerd by the exlusion variable */
 	},
 	{ path: "*.ext2" }
 ]

@@ -52,14 +52,23 @@ var walkSync = function (dir, filelist, ext, currentBundleOptions) {
 };
 
 var RelativeRegexp = /(.*?)\*.(.*?)$/;
-var FileExt = null;
 var BeenHere = {};
-function mergeFiles(list, currentBundleOptions, callback, ind) {
+function mergeFiles(list, currentBundleOptions, FileExt, BeenHere, callback, ind) {
     if (!ind) ind = 0;
-    if (!AllowDuplicatesInBundle && BeenHere[list]) ind++; else BeenHere[list] = 1;
+    if (!AllowDuplicatesInBundle && list[ind] && BeenHere[list[ind]]) ind++; else BeenHere[list] = 1;
+
+    // Recursive ending conditions
+    if (typeof list == "string") {
+        if (ind > 0) {
+            return callback(null, "");
+        }
+    } else if (ind >= list.length) {
+        return callback(null, "");
+    }
+
     
     // Parse a folder for it's files dynamically 
-    if (FileExt == null && (currentBundleOptions || typeof list == "string")) {
+    if (FileExt == null && (currentBundleOptions || typeof list == "string" || typeof list[ind] == "string")) {
         var useThisString = (currentBundleOptions) ? currentBundleOptions.path : ((typeof list == "string") ? list : list[ind]);
         var Matched = useThisString.match(RelativeRegexp);
         if (Matched) {
@@ -72,14 +81,8 @@ function mergeFiles(list, currentBundleOptions, callback, ind) {
     var curfile = (currentBundleOptions) ? currentBundleOptions.path : ((typeof list == "string") ? list : list[ind]);
     //console.log("cf: " + curfile + " | i: " + ind);
 
-    // Recursive ending conditions
-    if (typeof list == "string") {
-        if (ind > 0) {
-            return callback(null, "");
-        }
-    } else if (ind >= list.length) {
+    if (typeof curfile == "undefined")
         return callback(null, "");
-    }
 
   
 
@@ -90,8 +93,9 @@ function mergeFiles(list, currentBundleOptions, callback, ind) {
       if(includeFilePaths)
         body = "/* " + curfile + " */\n" + body;
 
+      var nextOptions = (list[ind + 1] && list[ind + 1].path) ? list[ind + 1] : null;
 
-    mergeFiles(list, currentBundleOptions, (err, otherFilesBody)=>{
+    mergeFiles(list, nextOptions, FileExt, BeenHere, (err, otherFilesBody)=>{
       if(err) return callback(err);
       callback(null, body+"\n\n"+otherFilesBody)
     }, ind+1)
@@ -105,24 +109,26 @@ MergeIntoFile.prototype.apply = function(compiler) {
     var file2createCnt = 0;
     Bundles.forEach(function (filename) {
         var files = options[filename];
-        BeenHere = {};
+        //BeenHere = {};
         // files gets the array of the bundle's options
-        for (var i = 0; i < files.length; i++) {
-            FileExt = null;
+        //for (var i = 0; i < files.length; i++) {
+        //FileExt = null; 
             var BundleMe;
             var currentBundlePartOptions;
 
-            if (typeof files[i] == "string") {
-                BundleMe = files[i];
+            //console.log("files[" + i + "]: " + JSON.stringify(files[i],null,2));
+
+            if (typeof files[0] == "string") {
+                BundleMe = files[0];
                 currentBundlePartOptions = null;
             } else {
-                BundleMe = files[i].path;
-                currentBundlePartOptions = files[i];
+                BundleMe = files[0].path;
+                currentBundlePartOptions = files[0];
             }
 
             file2createCnt++;
             (function (filenaname2create) {
-                mergeFiles(BundleMe, currentBundlePartOptions, (err, content) => {
+                mergeFiles(files, currentBundlePartOptions, null, {}, (err, content) => {
                     if (err) return callback(err);
                     compilation.assets[filenaname2create] = {
                         source: function () {
@@ -138,7 +144,7 @@ MergeIntoFile.prototype.apply = function(compiler) {
                     }
                 });
             })(filename);
-        }
+        //}
     });
   });
 };
