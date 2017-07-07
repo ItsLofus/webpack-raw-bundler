@@ -31,29 +31,33 @@ To the new:
 var RawBundlerPlugin = require('webpack-raw-bundler');
   
 module.exports = {
-plugins: [
-    new RawBundlerPlugin({
-            excludedFilenames: [/angulartics/],
-            readEncoding: "utf-8",
-            includeFilePathComments: false,
+	plugins: [
+		new RawBundlerPlugin({
+			excludedFilenames: [/angulartics/],
+			readEncoding: "utf-8",
+			includeFilePathComments: false,
 			allowDuplicatesInBundle: false,
 			printProgress: false,
 			fileEnding: "\n\n",
 			commentTags: { Start: "/* ", End: " */" },
-            bundles: [ "vendor.js", "styles.css", "vendor.lib.js" ],
-            "vendor.js": [
-			'js/*.js'
-            ],
+			bundles: [ 
+				"vendor.js", 
+				"styles.css", 
+				"vendor.lib.js" 
+			],
+			"vendor.js": [
+				'js/*.js'
+			],
 			"vendor.lib.js": [{
-                path: "../build/*.js",
-                match: /vendor/
-            }],
+				path: "../build/*.js",
+				match: /vendor/
+			}],
 			"styles.css": [
-			'css/bootstrap.css',
-			'css/edits.css'
+				'css/bootstrap.css',
+				'css/edits.css'
 			]
-    })
-]
+		})
+	]
 }
 
 ```
@@ -88,7 +92,7 @@ var a_global = function () { a_simple(); };
 function b_simple() {
 	console.log("b_simple called.");
 }
-var b_global = function () { a_simple(); b_simple(); };
+var b_global = function () { a_global(); b_simple(); };
 ```
 When webpack is called, the following complete.js will be made:
 ``` javascript
@@ -104,7 +108,7 @@ var a_global = function () { a_simple(); };
 function b_simple() {
 	console.log("b_simple called.");
 }
-var b_global = function () { a_simple(); b_simple(); };
+var b_global = function () { a_global(); b_simple(); };
 ```
 Note: The file names will not be appended to the tops of the files. I just wrote that for clarity. If you want to see what files are being bundled, flag `includeFilePathComments` as true.
 # Options
