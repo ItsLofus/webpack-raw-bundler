@@ -6,6 +6,9 @@ var Bundles;
 var includeFilePaths;
 var Encoding;
 var AllowDuplicatesInBundle;
+var printProgress;
+var CommentTags = { Start: "/* ", End: " */" };
+var FileEnding;
 
 
 function MergeIntoFile(options) {
@@ -15,6 +18,12 @@ function MergeIntoFile(options) {
     Encoding = options.readEncoding || null;
     AllowDuplicatesInBundle = options.allowDuplicatesInBundle || false;
     Bundles = options.bundles;
+    printProgress = options.printProgress || false;
+    FileEnding = options.fileEnding || "\n\n";
+
+    if (includeFilePaths)
+        CommentTags = options.commentTags || CommentTags;
+    
 
     this.options = options;
 }
@@ -79,7 +88,10 @@ function mergeFiles(list, currentBundleOptions, FileExt, BeenHere, callback, ind
     }
 
     var curfile = (currentBundleOptions) ? currentBundleOptions.path : ((typeof list == "string") ? list : list[ind]);
-    //console.log("cf: " + curfile + " | i: " + ind);
+
+    if (printProgress)
+        console.log("Bundling: " + curfile + "[" + (ind + 1) + "/" + list.length + "]");
+
 
     if (typeof curfile == "undefined")
         return callback(null, "");
@@ -91,13 +103,13 @@ function mergeFiles(list, currentBundleOptions, FileExt, BeenHere, callback, ind
 
       // Add the debug tags to see what file is what
       if(includeFilePaths)
-        body = "/* " + curfile + " */\n" + body;
+        body = CommentTags.Start + curfile + CommentTags.End + "\n" + body;
 
       var nextOptions = (list[ind + 1] && list[ind + 1].path) ? list[ind + 1] : null;
 
     mergeFiles(list, nextOptions, FileExt, BeenHere, (err, otherFilesBody)=>{
       if(err) return callback(err);
-      callback(null, body+"\n\n"+otherFilesBody)
+      callback(null, body + FileEnding + otherFilesBody)
     }, ind+1)
   })
 }
@@ -108,6 +120,10 @@ MergeIntoFile.prototype.apply = function(compiler) {
     var count=0;
     var file2createCnt = 0;
     Bundles.forEach(function (filename) {
+
+        if (printProgress)
+            console.log("Starting to bundle: " + filename);
+
         var files = options[filename];
             var BundleMe;
             var currentBundlePartOptions;

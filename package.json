@@ -1,6 +1,6 @@
 {
   "name": "webpack-raw-bundler",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Merge multiple files into single files",
   "scripts": {},
   "contributors": [
@@ -15,8 +15,10 @@
     "js",
     "merge",
     "concat",
-    "global webpack",
+    "globals webpack",
+    "webpack",
     "raw",
+    "expose",
     "bundler"
   ],
   "repository": {
