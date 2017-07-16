@@ -1,34 +1,34 @@
 {
-  "name": "webpack-raw-bundler",
-  "version": "1.3.2",
-  "description": "Merge multiple files into single files",
-  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/ItsLofus/webpack-raw-bundler/issues"
+  },
   "contributors": [
     {
       "name": "lofus"
     }
   ],
-  "devDependencies": {},
   "dependencies": {},
+  "description": "Merge multiple files into single files",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "ccdf389d0d1252c95e838030732f5f7a8bb566a8",
+    "tarball": "https://registry.npmjs.org/webpack-raw-bundler/-/webpack-raw-bundler-1.3.2.tgz"
+  },
+  "gitHead": "8765f589240db16633b32f9a8ea26f4c6e41ff3c",
+  "homepage": "https://github.com/ItsLofus/webpack-raw-bundler#readme",
+  "installable": true,
   "keywords": [
+    "bundler",
+    "concat",
+    "expose",
     "global",
+    "globals webpack",
     "js",
     "merge",
-    "concat",
-    "globals webpack",
-    "webpack",
     "raw",
-    "expose",
-    "bundler"
+    "webpack"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ItsLofus/webpack-raw-bundler.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ItsLofus/webpack-raw-bundler/issues"
-  },
-  "homepage": "https://github.com/ItsLofus/webpack-raw-bundler#readme",
   "licenses": [],
   "maintainers": [
     {
@@ -36,11 +36,12 @@
       "email": "aeteather@gmail.com"
     }
   ],
-  "directories": {},
-  "readme": "A Webpack plugin to merge your files together, unedited, into a single file.\n\n### Getting Started\n\n```bash\nnpm install webpack-raw-bundler\n```\n\n### Usage\n\nWhen you need to include a bunch of libraries, but don't have time to make the ordinary require statements, use this to bundle them all together so that their globals are actually global.\nIn other words, From the old:\n``` html\n\t<script src=\"js/jquery.js\"></script>\r\n\t<script src=\"js/silly.js\"></script>\r\n\t<script>\r\n\t\t$(silly()); // Some function in silly.js's global scope\r\n\t</script>\n```\nTo the new:\n``` html\n\t<script src=\"js/bundle.js\"></script>\r\n\t<script>\r\n\t\t$(silly()); // Some function in silly.js's global scope\r\n\t</script>\n```\n\n\n### Installing to the config\n``` javascript\n\n  var RawBundlerPlugin = require('webpack-raw-bundler');\n  \n  module.exports = {\n    plugins: [\n       new RawBundlerPlugin({\r\n             excludedFilenames: [/angulartics/],\r\n             readEncoding: \"utf-8\",\r\n             includeFilePathComments: false,\r\n             bundles: [ \"vendor.js\", \"styles.css\" ],\r\n             \"vendor.js\": [\r\n\t\t\t\t'js/*.js'\r\n             ],\r\n\t\t\t \"styles.css\": [\r\n\t\t\t \t'css/bootstrap.css',\r\n\t\t\t\t'css/edits.css'\r\n\t\t\t ]\r\n       })\n    ]\n\n```\n### Example Output\n\nThis generates two files with merged js and css content.\n\n``` html\n  <script src=\"./vendor.js\"></script>\n  <link rel=\"stylesheet\" href=\"./styles.css\">\n```\n\n### Options\n\n## bundles \n(Required)\nThe output files to be made. These will be outputted to the same directory as set in `module.exports.output.path` of your `webpack.config.js`\n\n## [Files] \n(Required) - (*.*)\nMust have the same name as a member of bundles. The sub-array are the files to are be included in the bundle. \nIf a filename is given a wildcard, it will add all files, including all subdirectories, with the appropiate file extension from that folder on.\n\n## excludedFilenames\ndefault: []\nAn array of regexp expressions that if a dynamically found filename is matched, will not be included.\n\n## readEncoding\ndefault: utf-8\nThe encoding nodejs reads in. Look up the documentation for more information.\n\n## includeFilePathComments\n(Boolean) - default: false \nPuts the file path of the added file in a `/**/` comment style before the bundled file contents.\nNote: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering character generated after this.\n\n### TODO\n```\n\tAdd support for `useAsLoader`\n\tAdd per bundle support for exlcusions\n\tAdd inclusion support \n\tAdd custom comment styles \n```",
-  "readmeFilename": "README.md",
-  "gitHead": "8765f589240db16633b32f9a8ea26f4c6e41ff3c",
-  "_id": "webpack-raw-bundler@1.0.1",
-  "_shasum": "c878fac879237eb0106e8508e86c05d046643f37",
-  "_from": "webpack-raw-bundler@>=1.0.1 <2.0.0"
+  "name": "webpack-raw-bundler",
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ItsLofus/webpack-raw-bundler.git"
+  },
+  "scripts": {},
+  "version": "1.3.3"
 }

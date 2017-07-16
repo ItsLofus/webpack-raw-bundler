@@ -21,7 +21,7 @@ To the new:
 ``` html
 <script src="js/bundle.js"></script>
 <script>
-	$(silly()); 
+	$(silly());
 </script>
 ```
 
@@ -29,7 +29,7 @@ To the new:
 # Installing to the config
 ``` javascript
 var RawBundlerPlugin = require('webpack-raw-bundler');
-  
+
 module.exports = {
 	plugins: [
 		new RawBundlerPlugin({
@@ -40,10 +40,10 @@ module.exports = {
 			printProgress: false,
 			fileEnding: "\n\n",
 			commentTags: { Start: "/* ", End: " */" },
-			bundles: [ 
-				"vendor.js", 
-				"styles.css", 
-				"vendor.lib.js" 
+			bundles: [
+				"vendor.js",
+				"styles.css",
+				"vendor.lib.js"
 			],
 			"vendor.js": [
 				'js/*.js'
@@ -113,14 +113,14 @@ var b_global = function () { a_global(); b_simple(); };
 Note: The file names will not be appended to the tops of the files. I just wrote that for clarity. If you want to see what files are being bundled, flag `includeFilePathComments` as true.
 # Options
 
-## bundles 
+## bundles
 (Required)
 
 The output files to be made. These will be outputted to the same directory as set in `module.exports.output.path` of your webpack.config
 
-## [Files] 
+## [Files]
 (Required)
- 
+
 Must have the same name as a member of bundles. The sub-array are the files to are be included in the bundle. The sub-array has the following format options:
 ``` javascript
 "bundle_name.extension" : [
@@ -146,7 +146,7 @@ default: utf-8
 The encoding nodejs reads in. Look up the documentation for more information.
 
 ## includeFilePathComments
-default: false 
+default: false
 
 Puts the file path of the added file in a `/**/` comment style before the bundled file contents.
 Note: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering character generated after this.
@@ -164,15 +164,16 @@ At compile time, prints the current files being bundled to the console. Note: Si
 ## commentTags
 default: `{ Start: "/* ", End: " */" }`
 
-The comment flags that the path to the current bundled file gets wrapped in. Only read if `includeFilePathComments` is true. 
+The comment flags that the path to the current bundled file gets wrapped in. Only read if `includeFilePathComments` is true.
 
 ## fileEnding
 default: `\n\n`
 
-The string that gets appended to the end of a bundled file. Two new lines are the default for easy reading. 
+The string that gets appended to the end of a bundled file. Two new lines are the default for easy reading.
 
 ### TODO
 ```
+Add per item support for not walking into subdirectories.
 Add support for `useAsLoader`
 Add per bundle support for exlcusions
 ```

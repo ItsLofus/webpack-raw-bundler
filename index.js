@@ -23,7 +23,7 @@ function MergeIntoFile(options) {
 
     if (includeFilePaths)
         CommentTags = options.commentTags || CommentTags;
-    
+
 
     this.options = options;
 }
@@ -75,16 +75,19 @@ function mergeFiles(list, currentBundleOptions, FileExt, BeenHere, callback, ind
         return callback(null, "");
     }
 
-    
-    // Parse a folder for it's files dynamically 
+
+    // Parse a folder for it's files dynamically
     if (FileExt == null && (currentBundleOptions || typeof list == "string" || typeof list[ind] == "string")) {
         var useThisString = (currentBundleOptions) ? currentBundleOptions.path : ((typeof list == "string") ? list : list[ind]);
         var Matched = useThisString.match(RelativeRegexp);
         if (Matched) {
             FileExt = Matched[2];
-            list = walkSync(Matched[1], [], FileExt, currentBundleOptions);
+
+            // Merge the newly found files into the list of things to deal with
+            list = walkSync(Matched[1], [], FileExt, currentBundleOptions).concat(list.slice(ind+1));
+            ind = 0;
             currentBundleOptions = null; // Clear out the options to keep on processing
-        } 
+        }
     }
 
     var curfile = (currentBundleOptions) ? currentBundleOptions.path : ((typeof list == "string") ? list : list[ind]);
@@ -96,9 +99,9 @@ function mergeFiles(list, currentBundleOptions, FileExt, BeenHere, callback, ind
     if (typeof curfile == "undefined")
         return callback(null, "");
 
-  
 
-  fs.readFile(curfile, Encoding, (err, body) =>{ 
+
+  fs.readFile(curfile, Encoding, (err, body) =>{
       if (err) return callback(err);
 
       // Add the debug tags to see what file is what
@@ -113,6 +116,8 @@ function mergeFiles(list, currentBundleOptions, FileExt, BeenHere, callback, ind
     }, ind+1)
   })
 }
+
+
 
 MergeIntoFile.prototype.apply = function(compiler) {
   var options = this.options;
@@ -130,13 +135,15 @@ MergeIntoFile.prototype.apply = function(compiler) {
 
 
             if (typeof files[0] == "string") {
-                BundleMe = files[0];
+                //BundleMe = files[0];
                 currentBundlePartOptions = null;
             } else {
-                BundleMe = files[0].path;
+                //BundleMe = files[0].path;
                 currentBundlePartOptions = files[0];
             }
 
+            // files = [./bin/file1.txt
+            //        ./bin/*.txt]
             file2createCnt++;
             (function (filenaname2create) {
                 mergeFiles(files, currentBundlePartOptions, null, {}, (err, content) => {
@@ -160,4 +167,3 @@ MergeIntoFile.prototype.apply = function(compiler) {
 };
 
 module.exports = MergeIntoFile;
-
