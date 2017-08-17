@@ -34,7 +34,7 @@ To the new:
 
 # Installing to the config
 Add the following plugin init statement to the same block as your other webpack plugins.
-*Simple* shows only the required options, while *complete* shows all the defaults. 
+*Simple* shows only the required options, while *complete* shows all the options. 
 ## Simple
 ``` javascript
 module.exports = {
