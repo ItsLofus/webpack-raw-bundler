@@ -134,7 +134,7 @@ function b_simple() {
 }
 var b_global = function () { a_global(); b_simple(); };
 ```
-*Note: The filenames will not be appended to the tops of the files unless `includeFilePathComments` falgged as true.*
+*Note: The filenames will not be appended to the tops of the files unless `includeFilePathComments` is falgged as true.*
 # Options
 
 ## bundles
@@ -172,8 +172,8 @@ The encoding nodejs reads in. Look up the documentation for more information.
 ## includeFilePathComments
 default: false
 
-Puts the file path of the added file in a `/**/` comment style before the bundled file contents.
-Note: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering character generated after this.
+Puts the file path of the added file, surrounded by `commentTags`, before the bundled file contents.
+Note: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering characters generated after this.
 
 ## allowDuplicatesInBundle
 default: false
