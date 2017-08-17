@@ -1,14 +1,18 @@
-A Webpack plugin to merge your files together, unedited, into a single file.
+A Webpack plugin to merge your files, unedited, into a single file.
 
-# Getting Started
+# Installation 
 
 ```bash
 npm install webpack-raw-bundler
 ```
+``` javascript
+var RawBundlerPlugin = require('webpack-raw-bundler');
+```
 
 # Usage
 
-When you need to include a bunch of libraries, but don't have time to make the ordinary require statements, use this to bundle them all together so that their globals are actually global.
+When you need to include a bunch of libraries, but don't have time to make the ordinary require statements, 
+or when your libraries don't support modular exporting, you can use this to bundle them all together so that their globals are actually global.
 In other words, From the old:
 ``` html
 <script src="js/jquery.js"></script>
@@ -27,9 +31,24 @@ To the new:
 
 
 # Installing to the config
+Add the following plugin init statement to the same block as your other webpack plugins.
+*Simple* shows only the required options, while *complete* shows all the defaults. 
+## Simple
 ``` javascript
-var RawBundlerPlugin = require('webpack-raw-bundler');
+module.exports = {
+	plugins: [
+		new RawBundlerPlugin({
+			bundles: [ "vendor.js" ],
+			"vendor.js": [
+				'js/*.js'
+			]
+		})
+	]
+}
+```
 
+## Complete
+``` javascript
 module.exports = {
 	plugins: [
 		new RawBundlerPlugin({
@@ -66,8 +85,13 @@ module.exports = {
 This generates two files with merged js and css content.
 
 ``` html
-<script src="./vendor.js"></script>
-<link rel="stylesheet" href="./styles.css">
+<!-- Simple -->
+<script src="/vendor.js"></script>
+
+<!-- Complete -->
+<script src="/vendor.js"></script>
+<script src="/vendor.lib.js"></script>
+<link rel="stylesheet" href="/styles.css">
 ```
 
 ### What Actually Happens
@@ -110,7 +134,7 @@ function b_simple() {
 }
 var b_global = function () { a_global(); b_simple(); };
 ```
-Note: The file names will not be appended to the tops of the files. I just wrote that for clarity. If you want to see what files are being bundled, flag `includeFilePathComments` as true.
+Note: The filenames will not be appended to the tops of the files unless `includeFilePathComments` falgged as true.
 # Options
 
 ## bundles
@@ -175,5 +199,6 @@ The string that gets appended to the end of a bundled file. Two new lines are th
 ```
 Add per item support for not walking into subdirectories.
 Add support for `useAsLoader`
+Add support for file watching
 Add per bundle support for exlcusions
 ```
