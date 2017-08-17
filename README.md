@@ -15,7 +15,7 @@ When you don't have time to make the ordinary require statements,
 or when your libraries don't support modular exporting, 
 you can use this to bundle them all together so that their globals are actually global.
 
-In other words, From the old:
+In other words, from the old:
 ``` html
 <script src="js/jquery.js"></script>
 <script src="js/silly.js"></script>
