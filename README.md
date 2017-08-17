@@ -174,7 +174,7 @@ default: false
 
 Puts the file path of the added file, surrounded by `commentTags`, before the bundled file contents.
 
-Note: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering characters generated after this.
+*Note: If reading from an invlaid encoding type, ie: settings are utf-8 but file is encoded in utf-8-BOM, then you may seem some non-rendering characters generated after this.*
 
 ## allowDuplicatesInBundle
 default: false
