@@ -11,8 +11,10 @@ var RawBundlerPlugin = require('webpack-raw-bundler');
 
 # Usage
 
-When you need to include a bunch of libraries, but don't have time to make the ordinary require statements, 
-or when your libraries don't support modular exporting, you can use this to bundle them all together so that their globals are actually global.
+When you don't have time to make the ordinary require statements, 
+or when your libraries don't support modular exporting, 
+you can use this to bundle them all together so that their globals are actually global.
+
 In other words, From the old:
 ``` html
 <script src="js/jquery.js"></script>
@@ -39,9 +41,7 @@ module.exports = {
 	plugins: [
 		new RawBundlerPlugin({
 			bundles: [ "vendor.js" ],
-			"vendor.js": [
-				'js/*.js'
-			]
+			"vendor.js": [ 'js/*.js' ]
 		})
 	]
 }
@@ -134,7 +134,7 @@ function b_simple() {
 }
 var b_global = function () { a_global(); b_simple(); };
 ```
-Note: The filenames will not be appended to the tops of the files unless `includeFilePathComments` falgged as true.
+*Note: The filenames will not be appended to the tops of the files unless `includeFilePathComments` falgged as true.*
 # Options
 
 ## bundles
